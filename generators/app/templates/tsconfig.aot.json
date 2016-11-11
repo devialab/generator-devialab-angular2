@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": false,
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "pretty": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "lib": [
+      "dom",
+      "es5"
+    ],
+    "typeRoots": [
+       "./node_modules/@types"
+    ],
+    "outDir": "aot/compiled"
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/app/**/*.spec.ts"
+  ],
+  "include": [
+    "src/app/**/*.ts"
+  ],
+
+  "angularCompilerOptions": {
+   "genDir": "aot",
+   "skipMetadataEmit" : true,
+   "debug": true
+ }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "generator-devialab-angular2",
+  "version": "0.1.0",
+  "description": "Yeoman generator for building Angular2 webapps",
+  "main": "index.js",
+  "files": [
+    "generators/app"
+  ],
+  "keywords": [
+    "yeoman-generator",
+    "angular2-generator",
+    "devialab-generator"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "chalk": "^1.1.3",
+    "es6-promise": "^4.0.5",
+    "glob": "^7.1.1",
+    "lodash": "^4.16.6",
+    "ncp": "^2.0.0",
+    "yeoman-generator": "^0.24.1",
+    "yosay": "^1.1.1"
+  }
+}
