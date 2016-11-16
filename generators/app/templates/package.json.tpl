@@ -19,7 +19,7 @@
   "scripts": {
     "build:dev": "npm run clean:dist && webpack --config config/webpack/webpack.dev.js --progress --profile",
     "build:prod": "npm run clean:dist && node_modules/.bin/ngc -p tsconfig.aot.json && webpack --config config/webpack/webpack.prod.js --progress --profile --bail",
-    "build": "npm run build:develop",
+    "build": "npm run build:dev",
     "ci": "npm run lint && npm test && npm run test:e2e",
     "clean:dist": "npm run rimraf -- dist",
     "clean:install": "npm set progress=false && npm install",
@@ -59,8 +59,8 @@
   "dependencies": {
     "@angular/common": "2.1.2",
     "@angular/core": "2.1.2",
-    "@angular/forms": "^2.1.1",
-    "@angular/http": "2.1.1",
+    "@angular/forms": "2.1.2",
+    "@angular/http": "2.1.2",
     "@angular/platform-browser": "2.1.2",
     "@angular/platform-browser-dynamic": "2.1.2",
     "@angular/router": "3.1.1",
@@ -79,9 +79,9 @@
     "zone.js": "~0.6.17"
   },
   "devDependencies": {
-    "@angular/compiler": "^2.1.2",
-    "@angular/compiler-cli": "^2.1.2",
-    "@angular/platform-server": "^2.1.2",
+    "@angular/compiler": "2.1.2",
+    "@angular/compiler-cli": "2.1.2",
+    "@angular/platform-server": "2.1.2",
     "@ngtools/webpack": "^1.1.4",
     "@types/core-js": "^0.9.34",
     "@types/hammerjs": "^2.0.33",
@@ -139,7 +139,7 @@
     "url-loader": "^0.5.7",
     "webpack": "2.1.0-beta.25",
     "webpack-dev-middleware": "^1.6.1",
-    "webpack-dev-server": "^2.1.0-beta.9",
+    "webpack-dev-server": "2.1.0-beta.9",
     "webpack-md5-hash": "^0.0.5",
     "webpack-merge": "^0.15.0"
   },
