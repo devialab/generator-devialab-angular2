@@ -6,7 +6,7 @@ An Angular2 generator for generic Devialab webapp projects with webpack
 
 ## Usage
 
-Install `yo`, `grunt-cli`, `bower` and `generator-devialab-angular2`:
+Install `yo` and `generator-devialab-angular2`:
 ```
 npm install -g yo generator-devialab-angular
 ```
