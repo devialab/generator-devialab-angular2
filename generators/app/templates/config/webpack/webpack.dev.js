@@ -33,7 +33,7 @@ const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   APP_CONFIG: APP_CONFIG
 });
 
-const LANGUAGES = APP_CONFIG.webtranslateit.langs;
+const LANGUAGES = APP_CONFIG.webtranslateit ? APP_CONFIG.webtranslateit.langs : ['es'];
 
 /**
  * Webpack configuration
