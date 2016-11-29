@@ -21,7 +21,7 @@ prompting: {
       type: 'input',
       name: 'appName',
       message: 'Your project name in kebab-case',
-      default: this.appname
+      default: _.kebabCase(this.appname)
     }).then(function(answers) {
       this.params.appName = answers.appName;
     }.bind(this));
@@ -100,7 +100,7 @@ prompting: {
         }
       }.bind(this));
   },
-  
+
   webtranslateit: function() {
 
     this.webtranslateitProjectKey = function() {
