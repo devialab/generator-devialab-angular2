@@ -132,24 +132,27 @@ module.exports = function (options) {
        *
        * See: https://gist.github.com/sokra/27b24881210b56bbaff7
        */
-      new LoaderOptionsPlugin({
-        debug: true,
-        options: {
+       new LoaderOptionsPlugin({
+         debug: true,
+         options: {
+           sassLoader: {
+            includePaths: [helpers.root('src/**/.scss')]
+           },
+           context: '/',
+           /**
+            * Static analysis linter for TypeScript advanced options configuration
+            * Description: An extensible linter for the TypeScript language.
+            *
+            * See: https://github.com/wbuchwalter/tslint-loader
+            */
+           tslint: {
+             emitErrors: false,
+             failOnHint: false,
+             resourcePath: 'src'
+           }
 
-          /**
-           * Static analysis linter for TypeScript advanced options configuration
-           * Description: An extensible linter for the TypeScript language.
-           *
-           * See: https://github.com/wbuchwalter/tslint-loader
-           */
-          tslint: {
-            emitErrors: false,
-            failOnHint: false,
-            resourcePath: 'src'
-          }
-
-        }
-      })
+         }
+       })
 
     ],
 
