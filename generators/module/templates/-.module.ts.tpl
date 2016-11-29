@@ -1,3 +1,5 @@
+<% if (description) { %>// <%= description %> <% } %>
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -8,7 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 @NgModule({
   // Components, Pipes, Directive
   declarations: [
-  <% if (component) { %><%= camelModuleName %>Component<% } %>
+    <% if (component) { %><%= camelModuleName %>Component<% } %>
   ],
 
   providers: [],
@@ -21,7 +23,7 @@ import { SharedModule } from '../shared/shared.module';
   ],
 
   exports: [
-  <% if (component) { %><%= camelModuleName %>Component<% } %>
+    <% if (component) { %><%= camelModuleName %>Component<% } %>
   ]
 })
 

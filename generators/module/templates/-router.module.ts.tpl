@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 @NgModule({
   imports: [
     RouterModule.forChild([
-    <% if (component) { %>{ path: '<%= moduleName %>', component: <%= camelModuleName %>Component }<% } %>
+      <% if (component) { %>{ path: '<%= moduleName %>', component: <%= camelModuleName %>Component }<% } %>
     ])
   ],
   exports: [

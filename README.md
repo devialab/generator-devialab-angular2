@@ -51,3 +51,11 @@ yo devialab-angular2
 ```
 
 The project use npm to resolve all the dependencies
+
+### Module
+Sets up a new Angular2 module, generating all the basic components that you need to create a new module.
+
+Example:
+```bash
+yo devialab-angular2:module
+```

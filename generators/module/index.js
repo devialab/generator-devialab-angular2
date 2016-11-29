@@ -3,13 +3,11 @@ var generators = require('yeoman-generator'),
     glob = require('glob'),
     _ = require('lodash');
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 module.exports = generators.Base.extend({
-  constructor: function () {
-    // An optional first argument to name the module.
-    this.argument('moduleName', { type: String, required: false });
-    this.params.moduleName = this.moduleName ? _.kebabCase(this.moduleName) : '';
-    this.params.camelModuleName = this.params.moduleName ? _.camelCase(this.params.moduleName) : '';
-  },
 
   initializing: {
 
@@ -23,17 +21,15 @@ module.exports = generators.Base.extend({
   prompting: {
 
     moduleName: function() {
-      if (!this.params.moduleName) {
-        return this.prompt({
-          type: 'input',
-          name: 'moduleName',
-          message: 'Your module name in kebab-case',
-          default: 'any-module'
-        }).then(function(answers) {
-          this.params.moduleName = answers.moduleName;
-          this.params.camelModuleName = _.camelCase(this.params.moduleName);
-        }.bind(this));
-      }
+      return this.prompt({
+        type: 'input',
+        name: 'moduleName',
+        message: 'Your module name in kebab-case',
+        default: 'any-module'
+      }).then(function(answers) {
+        this.params.moduleName = answers.moduleName;
+        this.params.camelModuleName = capitalizeFirstLetter(_.camelCase(this.params.moduleName));
+      }.bind(this));
     },
 
     description: function() {
@@ -97,31 +93,27 @@ module.exports = generators.Base.extend({
       glob(this.templatePath('**/*.tpl'), function(er, files) {
         files.forEach(function(file) {
 
-          var src = file.split('module/templates/');
-          src = src[1];
+          var src = file.split('module/templates/')[1],
+              type = src.split('-')[1].split('.')[1].split('.')[0];
+              extension = src.split(type + '.')[1].replace('.tpl', ''),
+              outputFilename = '',
+              moduleName = this.params.moduleName;
 
-          if (src.indexOf('?') !== -1) { // filter optional files that depends on input params
-            var type = scr.split('?-.')[1].split('.')[0],
-                extension = src.split(type + '.')[1].replace('.tpl', '');
-
-            if (!this.params[type]) {
+          if (!this.params[type] && type !== 'module' ||
+              extension === 'scss' && !this.params.styles ||
+              src.indexOf('router') !== -1 && !this.params.router) { // filter optional files that depends on input params
               return;
-            }
-
-            if (this.extension === 'scss' && !this.params.styles) {
-              return;
-            }
-
-            src = src.replace('-?', this.params.moduleName);
-          }
-          else {
-            src = src.replace('-', this.params.moduleName);
           }
 
+          if (src.indexOf('router') !== -1) {
+            moduleName = moduleName + '-' + 'router';
+          }
+
+          outputFilename = moduleName + '.' + type + '.' + extension;
 
           this.fs.copyTpl(
             this.templatePath(src),
-            this.destinationPath('src/app/' + this.params.moduleName + src.replace('.tpl', '')),
+            this.destinationPath('src/app/' + this.params.moduleName + '/' + outputFilename),
             this.params
           );
 
@@ -131,7 +123,8 @@ module.exports = generators.Base.extend({
 
       }.bind(this));
 
-    },
+    }
+  }
 
     /**
      * Copy all normal files to target folder

@@ -4,10 +4,10 @@ import { AppConfigService } from '../core/services/app-config.service';
 
 @Component({
   templateUrl: './<%= moduleName %>.component.html'<% if (styles) { %>,
-  stylesUrl: [ './<%= moduleName %>.component.scss' ]<% } %>
+  styleUrls: [ './<%= moduleName %>.component.scss' ]<% } %>
 })
 
-export class <%= moduleName %>Component {
+export class <%= camelModuleName %>Component {
   constructor (configService: AppConfigService) {
   }
 }
