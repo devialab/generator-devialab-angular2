@@ -23,7 +23,7 @@ const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 const HOST = process.env.HOST || ( process.env.HOST = env.host ) || 'localhost';
 const PORT = process.env.PORT || ( process.env.PORT = env.port ) || 3000;
 const APP_CONFIG = process.env.APP_CONFIG || ( process.env.APP_CONFIG = env.config ) || {};
-const HMR = helpers.hasProcessFlag('hot');
+const HMR = false; // = helpers.hasProcessFlag('hot');
 
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   HOST: HOST,
@@ -154,6 +154,8 @@ module.exports = function (options) {
          }
        })
 
+       //new HotModuleReplacementPlugin()
+
     ],
 
     /**
@@ -173,7 +175,8 @@ module.exports = function (options) {
         poll: 1000
       },
       outputPath: helpers.root('dist'),
-      hot: true
+      //hot: false,
+      inline: true
       //publicPath: '/locales/'
     },
 

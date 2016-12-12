@@ -8,7 +8,7 @@ An Angular2 generator for generic Devialab webapp projects with webpack
 
 Install `yo` and `generator-devialab-angular2`:
 ```
-npm install -g yo generator-devialab-angular
+npm install -g yo generator-devialab-angular2
 ```
 
 Make a new directory, and `cd` into it:
