@@ -230,6 +230,7 @@ module.exports = function (env) {
            */
           new LoaderOptionsPlugin({
             debug: false,
+            minimize: true,
             options: {
 
               /**

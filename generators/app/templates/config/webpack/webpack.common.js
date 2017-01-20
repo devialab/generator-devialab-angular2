@@ -19,6 +19,7 @@ const HtmlElementsPlugin = require('../html-elements-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const autoprefixer = require('autoprefixer');
 
 /*
@@ -121,10 +122,10 @@ module.exports = function (options) {
          * Returns file content as string
          *
          */
-/*        {
-          test: /\.css$/,
-          loaders: ['to-string-loader', 'css-loader']
-        }, */
+        /*        {
+                  test: /\.css$/,
+                  loaders: ['to-string-loader', 'css-loader']
+                }, */
 
         /* Raw loader support for *.html
          * Returns file content as string
@@ -144,7 +145,7 @@ module.exports = function (options) {
           loader: 'file'
         },
 
-                /*
+        /*
          * to string and css loader support for *.css files
          * Returns file content as string
          *
@@ -153,8 +154,14 @@ module.exports = function (options) {
           test: /\.scss$/,
           loaders: ['raw-loader', 'sass-loader?sourceMap']
         },
-        { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url?limit=10000&minetype=application/font-woff" },
-        { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file" },
+        {
+          test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          loader: "url?limit=10000&minetype=application/font-woff"
+        },
+        {
+          test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          loader: "file"
+        },
 
       ],
 
@@ -178,7 +185,7 @@ module.exports = function (options) {
        *
        * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
        */
-      new ForkCheckerPlugin(),
+      // new ForkCheckerPlugin(),
       /*
        * Plugin: CommonsChunkPlugin
        * Description: Shares common code between the pages.
@@ -215,10 +222,12 @@ module.exports = function (options) {
       new CopyWebpackPlugin([{
         from: 'src/assets',
         to: 'assets',
-      },/* {
-        from: 'src/meta',
-      },*/ ]),
+      }]),
 
+      new CopyWebpackPlugin([{
+        from: 'src/styles',
+        to: 'styles',
+      }]),
 
       /*
        * Plugin: HtmlWebpackPlugin
@@ -279,11 +288,32 @@ module.exports = function (options) {
        * See: https://gist.github.com/sokra/27b24881210b56bbaff7
        */
       new LoaderOptionsPlugin({
-      /*  postcss: [autoprefixer],
-        sassLoader: {
-          includePaths: [helpers.root('node_modules/bootstrap/scss')]
-        },
-        context: helpers.root('')*/
+        /*  postcss: [autoprefixer],
+          sassLoader: {
+            includePaths: [helpers.root('node_modules/bootstrap/scss')]
+          },
+          context: helpers.root('')*/
+      }),
+
+      new ProvidePlugin({
+        jQuery: 'jquery',
+        $: 'jquery',
+        jquery: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery",
+        Tether: "tether",
+        "window.Tether": "tether",
+        Alert: "exports-loader?Alert!bootstrap/js/dist/alert",
+        Button: "exports-loader?Button!bootstrap/js/dist/button",
+        Carousel: "exports-loader?Carousel!bootstrap/js/dist/carousel",
+        Collapse: "exports-loader?Collapse!bootstrap/js/dist/collapse",
+        Dropdown: "exports-loader?Dropdown!bootstrap/js/dist/dropdown",
+        Modal: "exports-loader?Modal!bootstrap/js/dist/modal",
+        Popover: "exports-loader?Popover!bootstrap/js/dist/popover",
+        Scrollspy: "exports-loader?Scrollspy!bootstrap/js/dist/scrollspy",
+        Tab: "exports-loader?Tab!bootstrap/js/dist/tab",
+        Tooltip: "exports-loader?Tooltip!bootstrap/js/dist/tooltip",
+        Util: "exports-loader?Util!bootstrap/js/dist/util",
       })
 
     ],
