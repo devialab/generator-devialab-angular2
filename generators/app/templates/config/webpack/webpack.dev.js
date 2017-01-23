@@ -8,6 +8,8 @@ const commonConfig = require('./webpack.common.js'); // the settings that are co
 
 const env = helpers.requireEnviroments('dev') || {};
 const _ = require('lodash');
+const path = require('path');
+
 
 /**
  * Webpack Plugins
@@ -23,7 +25,7 @@ const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 const HOST = process.env.HOST || ( process.env.HOST = env.host ) || 'localhost';
 const PORT = process.env.PORT || ( process.env.PORT = env.port ) || 3000;
 const APP_CONFIG = process.env.APP_CONFIG || ( process.env.APP_CONFIG = env.config ) || {};
-const HMR = false; // = helpers.hasProcessFlag('hot');
+const HMR = helpers.hasProcessFlag('hot');
 
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   HOST: HOST,
@@ -43,9 +45,7 @@ const LANGUAGES = APP_CONFIG.webtranslateit ? APP_CONFIG.webtranslateit.langs : 
 module.exports = function (options) {
     return webpackMerge(commonConfig({env: ENV}), {
 
-    entry: {
-      'main': './src/main.ts'
-    },
+    entry: ['bootstrap-loader', './src/main.ts'],
 
     devtool: 'cheap-module-source-map',
     /**
@@ -132,29 +132,32 @@ module.exports = function (options) {
        *
        * See: https://gist.github.com/sokra/27b24881210b56bbaff7
        */
-       new LoaderOptionsPlugin({
-         debug: true,
-         options: {
-           sassLoader: {
-            includePaths: [helpers.root('src/**/.scss')]
-           },
-           context: '/',
-           /**
-            * Static analysis linter for TypeScript advanced options configuration
-            * Description: An extensible linter for the TypeScript language.
-            *
-            * See: https://github.com/wbuchwalter/tslint-loader
-            */
-           tslint: {
-             emitErrors: false,
-             failOnHint: false,
-             resourcePath: 'src'
-           }
+      new LoaderOptionsPlugin({
+        debug: true,
+        options: {
+          sassLoader: {
+           includePaths: [helpers.root('src/**/.scss')]
+          },
+          context: '/',
 
-         }
-       })
+          /**
+           * Static analysis linter for TypeScript advanced options configuration
+           * Description: An extensible linter for the TypeScript language.
+           *
+           * See: https://github.com/wbuchwalter/tslint-loader
+           */
+          tslint: {
+            emitErrors: false,
+            failOnHint: false,
+            resourcePath: 'src'
+          },
+          context: __dirname,
+                    output: {
+                       path: path.join(__dirname, 'dist')
+                    }
 
-       //new HotModuleReplacementPlugin()
+        }
+      })
 
     ],
 
@@ -167,16 +170,15 @@ module.exports = function (options) {
      * See: https://webpack.github.io/docs/webpack-dev-server.html
      */
     devServer: {
-      port: METADATA.PORT,
+      port: +METADATA.PORT,
       host: METADATA.HOST,
       historyApiFallback: true,
       watchOptions: {
         aggregateTimeout: 300,
         poll: 1000
       },
-      outputPath: helpers.root('dist'),
-      //hot: false,
-      inline: true
+      inline: true,
+      hot: false
       //publicPath: '/locales/'
     },
 

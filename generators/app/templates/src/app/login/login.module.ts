@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ModalModule } from 'ng2-bootstrap/ng2-bootstrap'
-
 import { LoginRouterModule } from './login-router.module';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -20,7 +18,6 @@ import { SignUpComponent } from './sign-up/sign-up.component';
   // Modules
   imports: [
     CommonModule,
-    ModalModule,
     LoginRouterModule
   ],
 
